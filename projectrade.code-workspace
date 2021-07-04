@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true,
+		"editor.fontFamily": "'JetBrains Mono Regular','JetBrains Mono thin','JetBrains Mono ExtraBold'"
+	}
+}
