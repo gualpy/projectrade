@@ -11,7 +11,7 @@ class Admin extends BaseController
 		$model=model('Cliente');
 		
 		return view('admin/dadmindHome_view',[
-			'cliente'=>$model->orderBy('cliente','ASC')->paginate(10),
+			'cliente'=>$model->orderBy('cliente','ASC')->find(),
 			'pager'=>$model->pager
 		]);
 	}
@@ -47,6 +47,10 @@ class Admin extends BaseController
 		return view('admin/agregarFondos_view',[
 			'profit'=>$model->Where('cuenta',$id)->find()
 		]);
+	}
+
+	public function totalDepositos(){
+		view('admin/deposito_view');
 	}
 
 	//Delete one item

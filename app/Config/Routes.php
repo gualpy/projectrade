@@ -67,7 +67,7 @@ $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'aut
 $routes->group('admin',['namespace'=>'App\Controllers\Admin','filter'=>'auth:Admin'],function($routes){
     $routes->get('dashboard','Admin::index',['as'=>'panelAdmin']);
     $routes->get('detalleCuentas/(:num)','Admin::detalleCuentas/$1',['as'=>'detalle_Cuentas']);
-    
+    $routes->get('sumaDepositos','Admin::totalDepositos',['as'=>'suma_depositos']);
 });
 // $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'auth:Admin'],function($routes){
 //     $routes->get('dashboard','Home::index',['as'=>'pael']);// LOS DATOS DE PRESENTACIÓN EN LA PAG. PRINCIPAL DEL DASHBOARD

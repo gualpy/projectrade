@@ -4,7 +4,7 @@
 
     <!-- Billetera-->
     <div class="row card-body nopadding">
-        <div class="col-12 col-lg-8">
+        <div class="col-lg-12 col-lg-8">
             <header class="card-header mb-2">
                 <h2>Movimientos de la cuenta</h2>
             </header>

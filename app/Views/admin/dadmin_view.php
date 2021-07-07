@@ -109,7 +109,6 @@
                     alt="Projectrade" style="text-align: center; width: 70px;" style="opacity: .8">
                 <!-- <span style="color: black;">Projectrade</span> --> <br>
             </a>
-
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -133,9 +132,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?php echo base_url('/access/deposito')?>" class="nav-link">
+                                    <a href="<?php echo base_url(route_to('tota_depositos'))?>" class="nav-link">
                                         <i class="fa fa-money-bill-alt"></i>
-                                        <p>Depósito</p>
+                                        <p>Totales</p>
                                     </a>
                                 </li>
                                 <div class="dropdown-divider"></div>
