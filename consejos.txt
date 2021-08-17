@@ -1,0 +1,11 @@
+supongo que si son calculos o logica de negocio compleja puedes usar servicios y en tus clases de dominio (entidades) metes
+algunas funciones para consumir el servicio
+por ejemplo puedes tener la entidad de un usuario y tener
+una funcion que diga $user->getMonthlyProfit() y que te
+devuelva sus ganancias mensuales obviamente internamente
+esa funcion de dominio que se conecte a un servicio y asi
+escondes toda la abstraccion en el servicio
+y mantienes limpio tu modelo de dominio del usuario
+Atte. Luis Pasten
+
+https://www.facebook.com/tkm/videos/1598843683554286

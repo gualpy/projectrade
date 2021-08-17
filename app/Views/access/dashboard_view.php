@@ -182,6 +182,9 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
+                    <div class="alert alert-info" role="alert">
+                        Estimados usuarios actualmente estamos en actualización, sus valores están siendo actualizados en el transcurso de los días.<br> Gracias por la confianza
+                    </div>
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Bienvenido, <?= ucfirst(session('nombre')) ." ". ucfirst(session('apellido'));?></h1>
@@ -268,12 +271,12 @@
             labels: ['febrero','Marzo','Abril','Mayo'],
             datasets: [{
                 label: 'Profit',
-                data: [3,7,6, 5.49],
+                data: [3,7,6, 5.49,2],
                 backgroundColor: [
                     'rgb(66, 134, 244,0.5)',
                     'rgb(172, 247, 132,0.5 )',
                     'rgb(244, 247,9,0.5)',
-                    'rgb(248, 98, 240,0.5)',
+                    'rgb(248, 98, 240,0.5)'
                 ],
                 borderWidth: 1
             }]

@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Controllers\Admin;
-
+use App\Entities\ClienteEntity;
 use App\Controllers\BaseController;
+
 
 class Admin extends BaseController
 {
@@ -16,36 +17,99 @@ class Admin extends BaseController
 		]);
 	}
 
-	// edit a new item
+	// presenta en formulario datosCliente_view los datos del usuario
 	public function edit(int $id)
+	{	
+		
+		$mCliente = model('Cliente');
+		
+        //dd($mCliente->encuentraCliente($id));
+		$mPaises= model('Pais');
+        //dd($mCliente->encuentraCliente(session('id_cliente')));
+        return view('admin/datosCliente_view',[
+            'cliente'=>$mCliente->encuentraCliente($id),
+			'pais'=>$mPaises->findAll()
+        ]);
+
+	}
+
+	//Edita, guarda cambios de los datos del usuario
+	public function store()
 	{
-		$model=model('Cliente');
-		$cliente=$model->where('cliente',$id)->first();
-				 
-		dd($cliente);
-
-		// return view('admin/dashboardHome_view',[
-		// 	'cliente'=>$model->getWhere(['cliente' => $id]),
-		// ]);
-
+		
+		$validation = service('validation');
+		$validation->setRules([
+				'nombre'       =>'required|string|min_length[3]',
+				'apellido'     =>'required|string|min_length[3]',
+				'email'		   =>'required|valid_email',
+				'pais'		   =>'required',
+				'telefono'     =>'required|numeric|min_length[10]'
+		]);
+		if (!$validation->withRequest($this->request)->run()) {
+			//$validation->getErrors();
+			return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+		}
+		$data=$this->request->getPost();
+		$data['cliente'] =session('id_cliente'); 
+		$cliente = new ClienteEntity($data);//instancio de la entidad
+		$model = model('Cliente');//instancio el modelo Cliente
+		$model->save($cliente);
+		return redirect()->route('panelAdmin');
 	}
 
 	public function detalleCuentas(int $id)
 	{
-		$model=model('Cliente');
+		$mCliente=model('Cliente');
+		$mCuenta=model('Cuenta');
+
 		return view('admin/detalleCuentas_view',[
-			'cliente'=>$model->clientePocCuentas($id)
+			'cliente'=>$mCliente->clientePocCuentas($id),
+			'clientePocCuentas'=>$mCuenta->Where('cliente',$id)->Where('codigo',"tode")->find()
 		]);
 
 	}
 
 	//Update one item
-	public function agrearFondos( int $id )
+	public function profits()
 	{
+		$validation = service('validation');
+		$validation->setRules([
+				'fecha'       =>'required',
+				'ganancia'	  =>'required'
+		]);
+		if (!$validation->withRequest($this->request)->run()) {
+			//$validation->getErrors();
+			return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+		}
+		 $data=$this->request->getVar();
+		 //dd($data['idCuenta']);
+		 //dd(route_to('agregarFondos'));
+		 //dd($data);
+		  $id=$data['cuenta'];
+		  //dd($id);
+		  $model= model('Profit');
+		  //dd($model);
+		  //$model->save($data);	
+		return redirect()->route('presenta_Interes',[$id])->
+		with('msg',[
+			'type'=>'success',
+			'body'=>'Profit guardado a fuego']);
+	}
+
+	public function presentaInteres( int $id )
+	{
+		//Ecuentro el id de cliente para obtener el id de la cuenta puede tener 1 o más
 		
-		$model = model('Profit');
+		$mCliente=model('Cliente');
+		$mCuenta= model('Cuenta');
+		$mProfit = model('Profit');
+		$cuenta=$mCuenta->select('cuenta as idCuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find();
+		$idCuenta=$cuenta[0]->idCuenta;
+		
 		return view('admin/agregarFondos_view',[
-			'profit'=>$model->Where('cuenta',$id)->find()
+			'datosCliente'=>$mCliente->clientePocCuentas($id),
+			'cuenta'=>$mCuenta->select('cuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find(),
+			'profit'=>$mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$idCuenta[0])->orderBy('created_at','ASC')->find()
 		]);
 	}
 

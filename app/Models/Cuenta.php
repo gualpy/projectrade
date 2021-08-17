@@ -34,15 +34,4 @@ class Cuenta extends Model
             
         ]);
 	}
-
-	public function listaDepositos($value)
-	{
-		
-		return $this->query('select created_at as Fecha,
-		 							observacion as tipo,
-		 							deposito as valor
-		 							from tblCuenta
-		 							WHERE cliente='.$value)->getResultArray();	
-	}
-	
 }

@@ -1,5 +1,6 @@
-<?php echo $this->extend('access/dashboard_view');?>
-<?php echo $this->section('contenido');?>
+<?php
+echo $this->extend('access/dashboard_view');
+echo $this->section('contenido');?>
 <div class="card">
 
     <!-- Billetera-->
@@ -25,8 +26,8 @@
                             <div class="my-3">
                                 <table>
                                     <tbody>
-                                    <?php
-                                        //dd(array_column($cuenta, 'deposito'));
+                                    <?php 
+                                        //dd($cuenta);
                                     foreach($cuenta as $i):?>
                                         <tr>
                                             <th>
@@ -41,20 +42,19 @@
                                             <td><h4><?php echo date_format($i->created_at, "d-M-Y");?></h4></td>
                                         </tr>
                                         <tr>
-                                            <th><h4>Balance</h4></th>
-                                            <td><h4><?php if($i->deposito<=0){
-                                                echo "0,00";}else{echo "$".$i->deposito;}?></h4></td>
+                                            <th><h4>Depósitos</h4></th>
+                                            <td><h4><?php if($i->deposito<=0){echo "0,00";}else{echo "$"."0000";}?></h4></td>
                                         </tr>
                                         <?php endforeach;?>
                                         <tr>
-                                                <th><h4>Profit:</h4></th>
-                                                <td><h4><?php 
-                                                echo '$'.array_sum(array_column($profits,'ganancia'))?></h4></td>
+                                                <th><h4>Total de Profit:</h4></th>
+                                                <td><h4><?php echo '$'.array_sum(array_column($profits,'BalanceDeposito'))?></h4>
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td><h4>Total:</h4></td>
                                             <th>
-                                                <h4><?= '$'.$balance=array_sum(array_column($profits,'ganancia'))+ array_sum(array_column($cuenta,'deposito'))?></h4>
+                                                <h4><?//= $'.$balance=array_sum(array_column($profits,'BalanceDeposito'))+ array_sum(array_column($cuenta,'deposito'))?></h4>
                                             </th>
                                         </tr><br>
                                     </tbody>
@@ -93,17 +93,21 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
+                      <th>Id</th>
+                      <th>Código</th>
                       <th>Fecha - Hora</th>
                       <th>Descripción</th>
                       <th>Valor</th>
                     </tr>
                   </thead>
                   <tbody>
-                  <?php foreach($movimientos as $i):?>
+                  <?php foreach($cuenta as $i):?>
                     <tr>
-                      <td><?= $i['Fecha'];?></td>
-                      <td><?= $i['tipo'];?></td>
-                      <td><?= $i['valor'];?></td>
+                      <td><?= $i->id;?></td>
+                      <td><?= $i->codigoCuenta;?></td>
+                      <td><?= $i->created_at;?></td>
+                      <td><?= $i->observacion;?></td>
+                      <td><?= $i->deposito;?></td>
                     </tr>
                     <?php endforeach;?>
                   </tbody>

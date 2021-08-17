@@ -13,7 +13,7 @@ class Profit extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDelete        = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['codigo','concepto','fecha','ganancia','bono'];
+	protected $allowedFields        = ['codigo','concepto','fecha','ganancia','bono','cuenta'];
 
 	// Dates
 	protected $useTimestamps        = true;

@@ -26,7 +26,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($cliente as $i) : ?>
+                                    <?php foreach($cliente as $i): ?>
                                         <tr>
                                             <td><?= $i->nombre;?></td>
                                             <td><?= $i->apellido;?></td>

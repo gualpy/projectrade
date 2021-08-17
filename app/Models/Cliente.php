@@ -90,7 +90,7 @@ class Cliente extends Model
 
      public function total(int $valor)
      {
-         return $this->query('SELECT tblCliente.nombre, tblCliente.apellido, tblCliente.estado, tblPais.nombre as Pais, tblPais.codigo, sum(deposito) as deposito, tblCliente.created_at
+         return $this->query('SELECT tblCuenta.cuenta as id, tblCuenta.codigo as codigoCuenta, tblCliente.nombre, tblCliente.apellido, tblCliente.estado, tblPais.nombre as Pais, tblPais.codigo, tblCuenta.deposito, tblCuenta.observacion, tblCliente.created_at
 								FROM tblCliente, tblCuenta, tblPais
 								WHERE tblPais.pais=tblCliente.pais
 								and tblCliente.cliente=tblCuenta.cliente
@@ -112,28 +112,11 @@ class Cliente extends Model
 		return $this->query("SELECT tblCliente.cliente as idCliente,
 							tblCliente.nombre,
 							tblCliente.apellido,
-							tblCuenta.observacion,
-							tblCuenta.created_at,
-							tblCuenta.deposito,
+							tblCuenta.*,
 							tblCuenta.cuenta as idCuenta
 							from tblCliente, tblCuenta
 							WHERE tblCliente.cliente=tblCuenta.cliente
-							and tblCliente.cliente=".$id)->getResultArray();
-		  
-	 }
-	 
-	 public function movimientos(int $data)
-	 {
-		return $this->db->query('SELECT tblCliente.nombre,
-										tblCliente.apellido,
-										tblCuenta.deposito,
-										observacion,profit,(tblCuenta.deposito*tblCuenta.profit/100) as Ganancia,
-										tblCuenta.deposito*tblCuenta.profit/100 +deposito as total,
-										tblCuenta.created_at as fechaDeDeposito,
-										DATE(tblCuenta.created_at, INTERVAL 7 DAY) as FechaDePago
-										FROM tblCliente, tblCuenta
-										WHERE tblCliente.cliente=tblCuenta.cliente
-										and tblCliente.cliente='.$data)->getResultArray();
+							and tblCliente.cliente={$id} and tblCuenta.codigo = 'dep' ")->getResultArray();
 	 }
 	 
 }

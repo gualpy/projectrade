@@ -8,7 +8,7 @@ class Config extends BaseController
 {
 	public function index()
 	{
-		$model = model('cliente');
+		$model = model('Cliente');
         //dd($model->encuentraCliente());
 		$paisesModel= model('Pais');
         //dd($model->encuentraCliente(session('id_cliente')));

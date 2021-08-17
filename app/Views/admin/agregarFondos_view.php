@@ -4,12 +4,18 @@
     <!-- Billetera-->
     <div class="row card-body nopadding">
         <div class="col-12 col-lg-6">
-            <div class="row card-body nopadding">
+            <div class="card-body nopadding">
                 <header class="card-header mb-2">
-                    <h2>Depósitos de la cuenta de <??></h2>
+                    <h4>Depósitos de la cuenta de <?= $datosCliente[0]['nombre']; $datosCliente[0]['apellido']; ?><??></h4>
                 </header>
-
-                <form action="" method="POST" autocomplete="off">
+                <?php if(session('msg')):?>
+                    <div class="alert alert-<?= session('msg.type')?> text-center">
+                        <?= session('msg.body')?>
+                    </div>
+                <?php endif?>
+                <p style="color: red;"><?= session('errors.fecha')?></p>
+                <form action="<?= base_url(route_to('addProfits'))?>" method="POST" autocomplete="off">
+                <input type="hidden" name="codigo" id="codigo" value="profit">                
                     <div class="input-group mb-3">
                         <label class="col-12 col-sm-4 col-lg-4 col-xl-4 control-label" for="reason">
                             <span class="required">*</span>Fecha
@@ -24,13 +30,14 @@
                             <option value="Rendimiento Mensual">Rendimiento Mensual</option>
                         </select>
                     </div>
+                    <p style="color: red;"><?= session('errors.ganancia')?></p>
                     <div class="input-group mb-3">
                         <label class="col-12 col-sm-4 col-lg-4 col-xl-4 control-label" for="reason">
                             <span class="required">*</span>Ganancia %
                         </label>
                         <input type="text" name="ganancia" id="ganancia" class="form-control" placeholder="0.00 %">
+                        <input type="hidden" name="cuenta" id="cuenta" value="<?= $profit[0]['cuenta'] ?>">
                     </div>
-                    
                     <div class="input-group mb-3">
                         <label class="col-12 col-sm-4 col-lg-4 col-xl-4 control-label" for="reason">
                             <span class="required">*</span>Bono
@@ -39,7 +46,7 @@
                     </div>
                     <div class="row">
                         <!-- /.col -->
-                        <div class="col-lg-4">
+                        <div class="col-lg-8">
                             <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                         </div>
                         <!-- /.col -->
@@ -51,22 +58,29 @@
         <table style="background-color: #fff!important;" class="table-sortable table-responsive-sm table table-responsive-md table-responsive-xl " role="table">
                 <thead role="rowgroup">
                     <tr style="background-color:white!important;" role="row">
+                        <th style="text-align:left!important;" id="rank_header" role="columnheader">IdCuenta</th>
                         <th style="text-align:left!important;" id="rank_header" role="columnheader">Fecha</th>
-                        <th style="text-align:left!important;" id="rank_header" role="columnheader">Concepto</th>
-                        <th style="text-align:left!important;" id="riskLevel_header" role="columnheader">Ganancia %</th>
-                        <th style="text-align:left!important;" id="riskLevel_header" role="columnheader">Bono</th>
+                        <th style="text-align:left!important;" id="rank_header" role="columnheader">Ganancia %</th>
+                        <th style="text-align:left!important;" id="riskLevel_header" role="columnheader">profit</th>
+
                     </tr>
                 </thead>
                 <tbody id="myTable" role="rowgroup">
-                <?php foreach($profit as $i):?>
+                
                     <tr role="row">
-                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['fecha']; ?></td>
-                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['Concepto'] ?></td>
-                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['ganancia'].'%'?></td>
-                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['bono']?></td>
+                        <h4><?= '<b>Depostio Inicial: </b> $'. $deposito=$cuenta[0]->deposito;?></h4>
                     </tr>
+                    <?php //dd($profit);
                     
-                <?php endforeach;?>
+                     foreach($profit as $i):?>
+                    <tr role="row">
+                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['cuenta']; ?></td>
+                        <td class="content-alignment" align="left" valign="left" role="cell"><?= $i['created_at']; ?></td>
+                        <td class="content-alignment" align="left" valign="left" role="cell"><?= '$'.$i['ganancia'] ?></td>
+                        <td class="content-alignment" align="left" valign="left" role="cell"><?= setlocale(LC_MONETARY, 'en_US'); echo number_format($deposito =($deposito * $i['ganancia']/100)+$deposito, 2,".",",");?></td>
+                    </tr>    
+                    <?php endforeach;?>
+                
                 </tbody>
                 <tfoot></tfoot>
             </table>

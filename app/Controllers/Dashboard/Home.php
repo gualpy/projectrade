@@ -20,7 +20,6 @@ class Home extends BaseController
         // );
         return view('access/dashboardHome_view',[
             'cuenta'=>$model->total(session('id_cliente')),
-            'movimientos'=>$mCuenta->listaDepositos(session('id_cliente')),
             'profits'=>$mmovimiento->listadoDeProfits(session('id_cliente'))
         ]);
     }

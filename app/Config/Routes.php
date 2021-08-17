@@ -67,7 +67,10 @@ $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'aut
 $routes->group('admin',['namespace'=>'App\Controllers\Admin','filter'=>'auth:Admin'],function($routes){
     $routes->get('dashboard','Admin::index',['as'=>'panelAdmin']);
     $routes->get('detalleCuentas/(:num)','Admin::detalleCuentas/$1',['as'=>'detalle_Cuentas']);
+    $routes->post('actualizaClienteAdmin','Admin::store',['as'=>'actualizaCliente_Admin']);
     $routes->get('sumaDepositos','Admin::totalDepositos',['as'=>'suma_depositos']);
+    $routes->post('Admin/profits','Admin::profits',['as'=>'addProfits']);
+    $routes->post('Admin/presentaInteres/(:num)','Admin::presentaInteres',['as'=>'presenta_Interes']);
 });
 // $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'auth:Admin'],function($routes){
 //     $routes->get('dashboard','Home::index',['as'=>'pael']);// LOS DATOS DE PRESENTACIÓN EN LA PAG. PRINCIPAL DEL DASHBOARD

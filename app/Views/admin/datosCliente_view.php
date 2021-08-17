@@ -1,4 +1,4 @@
-<?php echo $this->extend('access/dashboard_view');?>
+<?php echo $this->extend('admin/dadmin_view');?>
 <?php echo $this->section('contenido');?>
 <div class="card">
     <div class="row card-body nopadding">
@@ -7,11 +7,11 @@
                 <h2>Información Personal</h2>
             </header>
             <?php if(session('msg')):?>
-              <div class="alert alert<?= session('msg.type')?> text-center">
+              <div class="alert alert-<?= session('msg.type')?> text-center">
                   <?= session('msg.body')?>
               </div>
           <?php endif?>
-            <form action="<?= base_url(route_to('actualizaCliente'))?>" method="POST" autocomplete="off">
+            <form action="<?= base_url(route_to('actualizaCliente_Admin'))?>" method="POST" autocomplete="off">
           <div class="input-group mb-3">
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Name" value="<?=$cliente[0]['nombreCliente']?>">
             <div class="input-group-append">
