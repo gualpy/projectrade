@@ -118,5 +118,13 @@ class Cliente extends Model
 							WHERE tblCliente.cliente=tblCuenta.cliente
 							and tblCliente.cliente={$id} and tblCuenta.codigo = 'dep' ")->getResultArray();
 	 }
-	 
+
+	//Admin/presentaInteres/1
+	public function presentaInteres($idCuenta)
+	{
+		return $this->query("SELECT * FROM tblCuenta, tblCliente
+							WHERE tblCliente.cliente=tblCuenta.cliente
+							AND tblCuenta.cuenta={$idCuenta}")->getResult();
+	}
+	  
 }

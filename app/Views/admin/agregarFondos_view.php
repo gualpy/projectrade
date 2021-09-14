@@ -16,8 +16,9 @@
         <div class="col-12 col-lg-6">
             <div class="card-body nopadding">
                 <header class="card-header mb-2">
-                    <h4>Depósitos de la cuenta de <?= $datosCliente[0]['nombre'];
-                                                    $datosCliente[0]['apellido']; ?></h4>
+                    
+                    <h4>Depósitos de la cuenta de <?= $presentaInteres[0]->nombre;
+                                                    $presentaInteres[0]->apellido; ?></h4>
                 </header>
                 <?php if (session('msg')) : ?>
                 <div class="alert alert-<?= session('msg.type') ?> text-center">
@@ -78,9 +79,10 @@
                     </tr>
                 </thead>
                 <tbody id="myTable" role="rowgroup">
-
+                <?php //dd($presentaInteres);?>
                     <tr role="row">
-                        <h4><?= '<b>Depostio Inicial: </b> $' . $deposito = $cuenta[0]->deposito; ?></h4>
+                        
+                        <h4><?= '<b>Depostio Inicial: </b> $' . $deposito = $presentaInteres[0]->deposito; ?></h4>
                     </tr>
                     <?php //dd($profit);
                     

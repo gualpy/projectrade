@@ -97,25 +97,17 @@ class Admin extends BaseController
 			'body'=>'Profit guardado a fuego']);
 	}
 
-	public function presentaInteres(int $id)
+	public function presentaInteres(int $idCuenta)
 	{
 		//Ecuentro el id de cliente para obtener el id de la cuenta puede tener 1 o más
 		
 		$mCliente=model('Cliente');
 		$mCuenta= model('Cuenta');
 		$mProfit = model('Profit');
-		//dd($id);
-		//$cuenta presenta el deposito id de Cliente y idCuenta osea el depósito
-		$cuenta=$mCuenta->select('cuenta as idCuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find();
-		//$cuenta=$mCuenta->select('*')->Where('cuenta',21)->orderBy('created_at','ASC')->find();
-		//dd($cuenta);
-		$id=$cuenta[0]->idCuenta;
-		//dd($id);
-		
+		//dd($mCliente->presentaInteres($idCuenta));
 		return view('admin/agregarFondos_view',[
-			'datosCliente'=>$mCliente->clientePorCuentas($id),
-			'cuenta'=>$mCuenta->select('cuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find(),
-			'profit'=>$mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$id[0])->orderBy('created_at','ASC')->find()
+			'presentaInteres'=>$mCliente->presentaInteres($idCuenta),
+			'profit'=>$mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$idCuenta)->orderBy('created_at','ASC')->find()
 		]);
 	}
 
