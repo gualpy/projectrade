@@ -28,4 +28,9 @@ class Services extends BaseService
 	//
 	//     return new \CodeIgniter\Example();
 	// }
+
+	public static function saludar()
+	{
+		echo "Esto es un saludo";
+	}
 }

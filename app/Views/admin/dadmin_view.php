@@ -27,7 +27,8 @@
     <!-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
     <!-- summernote -->
     <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css"> -->
-    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
 
 </head>
 
@@ -221,10 +222,9 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    
     <!-- jQuery UI 1.11.4 -->
-    <script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?=base_url('../assets/plugins/jquery-ui/jquery-ui.min.js')?>"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -237,6 +237,9 @@
     <script src="<?= base_url('../assets/plugins/chart.js/Chart.min.js')?>"></script>
     <!-- Sparkline -->
     <script src="<?= base_url('/assets/plugins/sparklines/sparkline.js')?>"></script>
+
+    <script src="<?= base_url('/assets/js/custom.js')?>"></script>
+    
     <!-- JQVMap -->
     <script src="<?= base_url('/assets/plugins/jqvmap/jquery.vmap.min.js')?>"></script>
     <script src="<?= base_url('/assets/plugins/jqvmap/maps/jquery.vmap.usa.js')?>"></script>
@@ -255,54 +258,13 @@
     <script src="<?= base_url('/assets/dist/js/adminlte.js')?>"></script>
     <script src="<?= base_url('/assets/plugins/popper/popper.min.js')?>"></script>
     <script src="<?= base_url('/assets/plugins/bootstrap/js/bootstrap.min.js')?>"></script>
+    
     <!-- AdminLTE for demo purposes -->
     <!-- <script src="../assets/dist/js/demo.js"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="../assets/dist/js/pages/dashboard.js"></script> -->
     
 
-    <script>
-    var ctx = document.getElementById("profitChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ['febrero','Marzo','Abril','Mayo'],
-            datasets: [{
-                label: 'Profit',
-                data: [3,7,6, 5.49],
-                backgroundColor: [
-                    'rgb(66, 134, 244,0.5)',
-                    'rgb(172, 247, 132,0.5 )',
-                    'rgb(244, 247,9,0.5)',
-                    'rgb(248, 98, 240,0.5)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            reponsive: true,
-            legend:{
-                display:false
-            },
-            scales: {
-                yAxes: [{
-                    stacked: true,
-                    ticks: {
-                        min:0,
-                        max:20,
-                        beginAtZero: true,
-                        callback: function(value){return value+ "%"}
-                    }
-                }]
-            },
-            plugins:{
-                labels:{
-                    render:'percentage',
-                    showActualPercentages:true
-                }
-            }
-        }
-    });
-    </script>
+    
 </body>
 </html>

@@ -71,14 +71,16 @@ $routes->group('admin',['namespace'=>'App\Controllers\Admin','filter'=>'auth:Adm
     $routes->get('sumaDepositos','Admin::totalDepositos',['as'=>'suma_depositos']);
     $routes->post('Admin/profits','Admin::profits',['as'=>'addProfits']);
     $routes->post('Admin/presentaInteres/(:num)','Admin::presentaInteres',['as'=>'presenta_Interes']);
+    
 });
 // $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'auth:Admin'],function($routes){
 //     $routes->get('dashboard','Home::index',['as'=>'pael']);// LOS DATOS DE PRESENTACIÓN EN LA PAG. PRINCIPAL DEL DASHBOARD
 
 
 // });
-
-// We get a performance increase by specifying the default
+//Route API
+    //$routes->resource('ApiChart',['Controller'=>'ApiChart']);
+// We get a performance increase by specifying the default app/Controllers/Api/ApiChart.php
 // route since we don't have to scan directories.
 //$routes->get('access/', 'Login::index');
 

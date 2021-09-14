@@ -71,7 +71,14 @@
                 </thead>
                 <tbody id="myTable" role="rowgroup">
                 <?php //dd($clientePocCuentas);
-                foreach($clientePocCuentas as $i):?>
+                if($clientePorCuentas==null){
+                    echo "<tr role ='row'>";
+                    echo "<tr>";
+                    echo "<td colspan='6' class='content-alignment'>Como solo hay una inversión no se registran totales</td>";
+                    echo"</tr>"; 
+                    echo "</tr>";
+                }
+                foreach($clientePorCuentas as $i):?>
                     <tr role="row">
                         <td class="content-alignment" align="left" valign="left" role="cell"><?= $i->cliente; ?></td>
                         <td class="content-alignment" align="left" valign="left" role="cell"><?= $i->codigo; ?></td>

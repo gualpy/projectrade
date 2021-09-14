@@ -107,7 +107,7 @@ class Cliente extends Model
 	 }
 	 // listado de clientes idCliente, nombre, apellido, observacion, deposito, id cuenta 
 	 // Usado en Controlador Admin->agregarFondos
-	 public function clientePocCuentas (int $id)
+	 public function clientePorCuentas (int $id)
 	 {
 		return $this->query("SELECT tblCliente.cliente as idCliente,
 							tblCliente.nombre,
