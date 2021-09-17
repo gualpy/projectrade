@@ -3,8 +3,7 @@
 <div class="card">
     <div class="row card-body nopadding">
         <div class="col-12">
-            <canvas id="myChart"
-                style="min-height: 600px; height: 200px; max-height: 250px; max-width: 100%; display: block;"
+            <canvas id="myChart" style="min-height: 75%; height: 200px; max-height: 250px; max-width: 75%; display: block;"
                 width="468" height="275" class="chartjs-render-monitor">
             </canvas>
         </div>

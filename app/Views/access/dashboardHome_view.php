@@ -102,7 +102,7 @@ echo $this->section('contenido');?>
                   </thead>
                   <tbody>
                   <?php foreach($cuenta as $i):?>
-                    <tr>
+                    <tr  class="interes" data-id="<?= $i->id;?>">
                       <td><?= $i->id;?></td>
                       <td><?= $i->codigoCuenta;?></td>
                       <td><?= $i->created_at;?></td>

@@ -10,25 +10,24 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url('/assets/plugins/fontawesome-free/css/all.min.css')?>">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?= base_url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')?>">
     <!-- Tempusdominus Bootstrap 4 -->
     <!-- <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> -->
     <!-- iCheck -->
-    <link rel="stylesheet" href="../assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url('/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
     <!-- JQVMap -->
     <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= base_url('/assets/dist/css/adminlte.min.css')?>">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="<?= base_url('/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')?>">
     <!-- Daterange picker -->
     <!-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
     <!-- summernote -->
     <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css"> -->
     
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -224,87 +223,48 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?= base_url('/assets/js/custom.js')?>"></script>
+
+    <script src="<?= base_url('/assets/plugins/jquery/jquery.min.js')?>"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?= base_url('/assets/plugins/jquery-ui/jquery-ui.min.js')?>"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
     $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+    <script src="<?= base_url('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js')?>"></script>
+    <script src="<?= base_url('https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js')?>"></script>
     <!-- ChartJS -->
 
-    <script src="../assets/plugins/chart.js/Chart.min.js"></script>
+    <script src="<?= base_url('/assets/plugins/chart.js/Chart.min.js')?>"></script>
     <!-- Sparkline -->
-    <script src="../assets/plugins/sparklines/sparkline.js"></script>
+    <script src="<?= base_url('/assets/plugins/sparklines/sparkline.js')?>"></script>
     <!-- JQVMap -->
-    <script src="../assets/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="../assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="<?= base_url('/assets/plugins/jqvmap/jquery.vmap.min.js')?>"></script>
+    <script src="<?= base_url('/assets/plugins/jqvmap/maps/jquery.vmap.usa.js')?>"></script>
     <!-- jQuery Knob Chart -->
-    <script src="../assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="<?= base_url('/assets/plugins/jquery-knob/jquery.knob.min.js')?>"></script>
     <!-- daterangepicker -->
-    <script src="../assets/plugins/moment/moment.min.js"></script>
-    <script src="../assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="<?= base_url('/assets/plugins/moment/moment.min.js')?>"></script>
+    <script src="<?= base_url('/assets/plugins/daterangepicker/daterangepicker.js')?>"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="../assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="<?= base_url('/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')?>"></script>
     <!-- Summernote -->
     <!-- <script src="assets/plugins/summernote/summernote-bs4.min.js"></script> -->
     <!-- overlayScrollbars -->
-    <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="<?= base_url('/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')?>"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/dist/js/adminlte.js"></script>
-    <script src="../assets/plugins/popper/popper.min.js"></script>
-    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= base_url('/assets/dist/js/adminlte.js')?>"></script>
+    <script src="<?= base_url('/assets/plugins/popper/popper.min.js')?>"></script>
+    <script src="<?= base_url('/assets/plugins/bootstrap/js/bootstrap.min.js')?>"></script>
     <!-- AdminLTE for demo purposes -->
     <!-- <script src="../assets/dist/js/demo.js"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="../assets/dist/js/pages/dashboard.js"></script> -->
     
 
-    <script>
-    var ctx = document.getElementById("profitChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ['febrero','Marzo','Abril','Mayo'],
-            datasets: [{
-                label: 'Profit',
-                data: [3,7,6, 5.49,2],
-                backgroundColor: [
-                    'rgb(66, 134, 244,0.5)',
-                    'rgb(172, 247, 132,0.5 )',
-                    'rgb(244, 247,9,0.5)',
-                    'rgb(248, 98, 240,0.5)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            reponsive: true,
-            legend:{
-                display:false
-            },
-            scales: {
-                yAxes: [{
-                    stacked: true,
-                    ticks: {
-                        min:0,
-                        max:20,
-                        beginAtZero: true,
-                        callback: function(value){return value+ "%"}
-                    }
-                }]
-            },
-            plugins:{
-                labels:{
-                    render:'percentage',
-                    showActualPercentages:true
-                }
-            }
-        }
-    });
-    </script>
+    
 </body>
 </html>

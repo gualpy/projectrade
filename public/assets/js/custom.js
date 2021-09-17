@@ -80,9 +80,8 @@ $(document).ready(function() {
             let ganancia = [];
             let Concepto = [];
             let fecha =[];
-            let color = ['rgba(66, 134, 244,0.3)', 'rgba(172, 247, 132, 0.3)', 'rgba(244, 247,9, 0.3)','rgba(248, 128, 240,0.5)','rgba(248, 242, 240,0.3)','rgba(248, 212, 240,0.3)', 'rgba(248, 233, 240,0.3)', 'rgba(54, 162, 235, 0.3)', 'rgba(255, 206, 86, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(153, 102, 255, 0.3)', 'rgba(255, 159, 64, 0.3)'];
+            let color = ['rgba(66, 134, 244,0.3)', 'rgba(172, 247, 132, 0.3)', 'rgba(244, 247,9, 0.3)','rgba(248, 98, 24,0.3)','rgba(24, 34, 248 ,0.3)','rgba(147, 137, 169 ,0.3)', 'rgba(192, 144, 190 ,0.3)', 'rgba(54, 162, 235, 0.3)', 'rgba(80, 188, 68, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(153, 102, 255, 0.3)', 'rgba(255, 159, 64, 0.3)'];
             let bordercolor = ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
-            console.log(data);
             let etiqueta=[]
  
             for (let i in data) {
@@ -114,15 +113,13 @@ $(document).ready(function() {
                 data: chartdata,
                 options: {
                     responsive: true,
-                    plugins: {
-                        legend:{
-                            position:'top',
-                        },
-                      },
-                      title:{
-                          display:true,
-                          text:'Ganancias mensuales'
-                      }
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
             });
         },
@@ -131,8 +128,48 @@ $(document).ready(function() {
         }
     });
 
-
+    //Chart para el usuario
+    id=$(".interes").data("id");
+    var ctx = document.getElementById("profitChart").getContext('2d');
     
+    var myChart = new Chart(ctx, {
+        type:'bar',
+        data:{
+            datasets: [{
+                label: 'Ganancias Mensuales en %',
+                backgroundColor: ['rgba(66, 134, 244,0.3)', 'rgba(172, 247, 132, 0.3)', 'rgba(244, 247,9, 0.3)','rgba(248, 98, 24,0.3)','rgba(24, 34, 248 ,0.3)','rgba(147, 137, 169 ,0.3)', 'rgba(192, 144, 190 ,0.3)', 'rgba(54, 162, 235, 0.3)', 'rgba(80, 188, 68, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(153, 102, 255, 0.3)', 'rgba(255, 159, 64, 0.3)'],
+                borderColor: ['black'],
+                borderWidth:1
+            }]
+        },
+        options:{
+            scales:{
+                y:{
+                    beginAtZero:true
+                }
+            }
+        }
+    })    
+
+    let url = 'http://localhost:8080/ApiChart/profits/'+id
+    fetch(url)
+        .then( response => response.json() )
+        .then( datos => mostrar(datos) )
+        .catch( error => console.log(error) )
+
+
+    const mostrar = (valores) =>{
+        valores.forEach(element => {
+            myChart.data['labels'].push(element.fecha)
+            myChart.data['datasets'][0].data.push(element.ganancia)
+            myChart.update()
+        });
+        console.log(myChart.data)
+    }    
+
+
 });
+
+
 
   
