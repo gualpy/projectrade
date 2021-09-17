@@ -79,7 +79,7 @@
                     </tr>
                 </thead>
                 <tbody id="myTable" role="rowgroup">
-                <?php //dd($presentaInteres);?>
+                    <?php //dd($presentaInteres);?>
                     <tr role="row">
                         
                         <h4><?= '<b>Depostio Inicial: </b> $' . $deposito = $presentaInteres[0]->deposito; ?></h4>
@@ -87,8 +87,8 @@
                     <?php //dd($profit);
                     
                     foreach ($profit as $i) : ?>
-                    <tr role="row" id="interes">
-                        <td class="content-alignment" align="left" valign="left" role="cell" id="cuenta"><?= $i['cuenta']; ?></td>
+                    <tr role="row" class="interes" data-id="<?= $i['cuenta'];?>">
+                        <td class="content-alignment" align="left" valign="left" role="cell" data-id="<?= $i['cuenta']?>" id="cuenta"><?= $i['cuenta']; ?></td>
                         <td class="content-alignment" align="left" valign="left" role="cell" id="fecha"><?= $i['created_at']; ?></td>
                         <td class="content-alignment" align="left" valign="left" role="cell" id="ganancia"><?= '$' . $i['ganancia'] ?></td>
                         <td class="content-alignment" align="left" valign="left" role="cell" id="total"><?= setlocale(LC_MONETARY, 'en_US');

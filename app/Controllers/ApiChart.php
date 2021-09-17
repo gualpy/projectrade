@@ -11,10 +11,15 @@ class ApiChart extends ResourceController
     
     public function index()
     {
-        $model= model('Profit');
-        //$this->respond($model->findAll());
-        return $this->respond($model->select('*')->Where('cuenta',5)->orderBy('created_at','ASC')->find());
+    
     }
 
+    public function profits($id)
+    {
+        $model= model('Profit');
+        
+        //$this->respond($model->findAll());
+        return $this->respond($model->select('*')->Where('cuenta',$id)->orderBy('created_at','ASC')->find());
+    }
     
 }

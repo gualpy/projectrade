@@ -70,29 +70,33 @@
 
 
 $(document).ready(function() {
+    id=$(".interes").data("id");
     $.ajax({
-        url: "http://localhost:8080/ApiChart",
+        url: "http://localhost:8080/ApiChart/profits/"+id,
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
         method: "GET",
         success: function(data) {
-            var ganancia = [];
-            var Concepto = [];
-            var fecha =[];
-            var color = ['rgba(66, 134, 244,0.3)', 'rgba(172, 247, 132, 0.3)', 'rgba(244, 247,9, 0.3)','rgba(248, 128, 240,0.5)','rgba(248, 242, 240,0.3)','rgba(248, 212, 240,0.3)', 'rgba(248, 233, 240,0.3)', 'rgba(54, 162, 235, 0.3)', 'rgba(255, 206, 86, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(153, 102, 255, 0.3)', 'rgba(255, 159, 64, 0.3)'];
-            var bordercolor = ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+            let ganancia = [];
+            let Concepto = [];
+            let fecha =[];
+            let color = ['rgba(66, 134, 244,0.3)', 'rgba(172, 247, 132, 0.3)', 'rgba(244, 247,9, 0.3)','rgba(248, 128, 240,0.5)','rgba(248, 242, 240,0.3)','rgba(248, 212, 240,0.3)', 'rgba(248, 233, 240,0.3)', 'rgba(54, 162, 235, 0.3)', 'rgba(255, 206, 86, 0.3)', 'rgba(75, 192, 192, 0.3)', 'rgba(153, 102, 255, 0.3)', 'rgba(255, 159, 64, 0.3)'];
+            let bordercolor = ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
             console.log(data);
+            let etiqueta=[]
  
-            for (var i in data) {
+            for (let i in data) {
                 fecha.push(data[i].fecha);
                 Concepto.push(data[i].Concepto);
                 ganancia.push(data[i].ganancia);
+                etiqueta.push(data[1].ganancia);
             }
             
-            var chartdata = {
+            let chartdata = {
                 
                 labels: fecha,
                 datasets: [{
+                    label:etiqueta,
                     fill: false,
                     backgroundColor: color,
                     borderColor: color,
@@ -103,26 +107,22 @@ $(document).ready(function() {
                 }]
             };
  
-            var mostrar = $("#myChart");
+            let mostrar = $("#myChart");
  
-            var myChart = new Chart(mostrar, {
+            let myChart = new Chart(mostrar, {
                 type: 'bar',
                 data: chartdata,
                 options: {
-                    plugins: {
-                        title: {
-                          display: true,
-                          text: 'Chart Title',
-                        }
-                      },
                     responsive: true,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
+                    plugins: {
+                        legend:{
+                            position:'top',
+                        },
+                      },
+                      title:{
+                          display:true,
+                          text:'Ganancias mensuales'
+                      }
                 }
             });
         },
@@ -130,4 +130,9 @@ $(document).ready(function() {
             console.log(data);
         }
     });
+
+
+    
 });
+
+  

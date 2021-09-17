@@ -79,18 +79,12 @@ class Admin extends BaseController
 				'ganancia'	  =>'required'
 		]);
 		if (!$validation->withRequest($this->request)->run()) {
-			//$validation->getErrors();
+			
 			return redirect()->back()->withInput()->with('errors', $validation->getErrors());
 		}
 		 $data=$this->request->getVar();
-		 //dd($data['idCuenta']);
-		 //dd(route_to('agregarFondos'));
-		 //dd($data);
 		  $id=$data['cuenta'];
-		  //dd($id);
-		  $model= model('Profit');
-		  //dd($model);
-		  //$model->save($data);	
+		  //$model= model('Profit');
 		return redirect()->route('presenta_Interes',[$id])->
 		with('msg',[
 			'type'=>'success',
@@ -104,30 +98,13 @@ class Admin extends BaseController
 		$mCliente=model('Cliente');
 		$mCuenta= model('Cuenta');
 		$mProfit = model('Profit');
-		//dd($mCliente->presentaInteres($idCuenta));
+		//dd($mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$idCuenta)->orderBy('created_at','ASC')->find());
 		return view('admin/agregarFondos_view',[
 			'presentaInteres'=>$mCliente->presentaInteres($idCuenta),
 			'profit'=>$mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$idCuenta)->orderBy('created_at','ASC')->find()
 		]);
 	}
 
-	public function apiChart(int $id)
-	{
-		$cChart=$this->presentaInteres($id);
-		dd($cChart);
-		$mCliente=model('Cliente');
-		$mCuenta= model('Cuenta');
-		$mProfit = model('Profit');
-		$cuenta=$mCuenta->select('cuenta as idCuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find();
-		$idCuenta=$cuenta[0]->idCuenta;
-		
-		return view('admin/agregarFondos_view',[
-			'datosCliente'=>$mCliente->clientePocCuentas($id),
-			'cuenta'=>$mCuenta->select('cuenta ,cliente as idCliente, deposito')->Where('cliente',$id)->orderBy('created_at','ASC')->find(),
-			'profit'=>$mProfit->select('ganancia, cuenta, created_at')->Where('cuenta',$idCuenta[0])->orderBy('created_at','ASC')->find()
-		]);
-	}
-	
 	public function totalDepositos(){
 		view('admin/deposito_view');
 	}
