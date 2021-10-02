@@ -73,6 +73,8 @@ class Cambiapassword extends BaseController
 			
 		}	
 	}
+
+	//$data is array [cliente, password, email]
 	public function emailPassword($data)
     {
         $email = \Config\Services::email();
@@ -94,4 +96,46 @@ class Cambiapassword extends BaseController
 			print_r($data);
 		}
     }
+
+	public function email(array $data, $subject, $pahtTemplateView, $emailFrom)
+	{
+		$email = Service('email');
+		try {   
+			$message=view($pahtTemplateView,$data);
+			$email->setTo($data['email']);
+			$email->setFrom($emailFrom,'Info');
+			$email->setBCC($emailFrom,'Info');
+			$email->setSubject($subject);
+			$email->setMessage($message);
+		} catch (\Throwable $th) {
+			echo "Alguno de los parámetros está vacío ".$th;
+		}
+	}
+
+	public function forgotPassword()
+	{	$encriptador=service('encrypter');
+		//$hoy = date("H:i:s");
+		//$email 	= trim($this->request->getVar('forgotmail'));
+		$encriptado=$encriptador->encrypt(20210304210009);
+		echo ($encriptado."\n");
+		$desencriptado = $encriptador->decrypt($encriptado);
+		echo $desencriptado."\n";
+
+
+
+
+
+
+		$mCliente=model('Cliente');
+		$query=$mCliente->Select('*')->getWhere(['email'=>$email])->getRow();
+		$data=array('nombre'=>$query->nombre,'email'=>$email,'password'=>$query->password);
+		$data=[$email];
+		if($query == null)
+		{
+			echo "envia email de cambio de password";
+		}else{
+			echo "nada";
+			//$this->email($data, $subject='Cambio de contraseña', $pahtTemplateView='',$emailFrom='info@projectrade.com');
+		}
+	}
 }

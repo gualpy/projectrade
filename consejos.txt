@@ -9,3 +9,27 @@ y mantienes limpio tu modelo de dominio del usuario
 Atte. Luis Pasten
 
 https://www.facebook.com/tkm/videos/1598843683554286
+
+<input type="email" class="form-control" name="forgotmail" id="forgotmail" placeholder="Email">
+
+<script>    
+    //forgot password
+    $("#btnForgot").click(function() {
+          let url = window.location.origin;
+          let email=$("#forgotmail").val();
+          //alert(email);
+          $.ajax({
+            type: "post",
+            url: "<?php echo base_url(route_to('forgot'));?>",
+            data: {email:email},
+            success: function (response) {
+              console.log(response);
+              $("#message").html(response);
+            },
+            error: function() 
+                    {
+                        alert("Usuario no encontrado");
+                    }
+          });
+    });
+  </script>
