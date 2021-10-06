@@ -11,6 +11,7 @@ Características
 - Envía emails cuando un cliente hace un depósito
 - Administradores agregan porcentajes mensuales de ganancias
 - Aministradores Gestionan todo los clientes
+- Api Rest de ganancias 
 - Base de datos Mysql 
 
 ![image](https://user-images.githubusercontent.com/47654456/136291447-de6aa454-5cb3-4d08-9cd4-3eecc4183f25.png)
