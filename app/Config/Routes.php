@@ -72,6 +72,10 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('Admin/profits', 'Admin::profits', ['as' => 'addProfits']);
     $routes->post('Admin/presentaInteres/(:num)', 'Admin::presentaInteres', ['as' => 'presenta_Interes']);
 });
+
+$routes->resource('api/auth', ['controller' => 'Auth']);
+$routes->resource('api/user', ['controller' => 'User']);
+
 // $routes->group('access',['namespace'=>'App\Controllers\Dashboard','filter'=>'auth:Admin'],function($routes){
 //     $routes->get('dashboard','Home::index',['as'=>'pael']);// LOS DATOS DE PRESENTACIÓN EN LA PAG. PRINCIPAL DEL DASHBOARD
 

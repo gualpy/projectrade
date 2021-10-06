@@ -33,4 +33,10 @@ class Services extends BaseService
 	{
 		echo "Esto es un saludo";
 	}
+	
+	public static function getSecretKey()
+	{
+		return 'projectr';
+	}
+
 }

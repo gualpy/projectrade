@@ -19,8 +19,11 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
-		'auth'	   => \App\Filters\Auth::class
+		'auth'	   => \App\Filters\Auth::class,
+		'authFilter' => \App\Filters\AuthFilter::class
 	];
+
+	
 
 	/**
 	 * List of filter aliases that are always
@@ -59,5 +62,13 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [];
+	public $filters = [
+		'authFilter' => [
+					'before' => [
+						'api/user/*',
+						'api/user',
+					],
+		],		
+	];
+	
 }

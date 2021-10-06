@@ -3,8 +3,8 @@
 namespace App\Controllers\Dashboard;
 
 use App\Controllers\BaseController;
-use App\Entities\ClienteEntity;
-use App\Models\Cliente;
+
+use Exception;
 
 class Cambiapassword extends BaseController
 {
@@ -96,46 +96,49 @@ class Cambiapassword extends BaseController
 			print_r($data);
 		}
     }
-
-	public function email(array $data, $subject, $pahtTemplateView, $emailFrom)
+	
+	public function emailTemplate($data, $subject, $templateEmail)
 	{
-		$email = Service('email');
+		//dd($data['email'], $subject, $templateEmail);
+		$email = service('email');
+		
 		try {   
-			$message=view($pahtTemplateView,$data);
-			$email->setTo($data['email']);
-			$email->setFrom($emailFrom,'Info');
-			$email->setBCC($emailFrom,'Info');
+			$message=view($templateEmail,$data);
+			$email->setTo("ca80dd06eb-67304c@inbox.mailtrap.io");
+			$email->setFrom($data['email'],'Info');
+			$email->setBCC($data['email'],'Info');
 			$email->setSubject($subject);
 			$email->setMessage($message);
-		} catch (\Throwable $th) {
-			echo "Alguno de los parámetros está vacío ".$th;
+			if($email->send())
+			{
+				echo "La contraseña ha sido cambiada satisfactoriamente.";
+			}else{
+
+				$data = $email->printDebugger(['headers']);
+				print_r($data);
+			}
+			echo "Mensaje enviado";
+		} catch (Exception $ex) {
+			echo "Alguno de los parámetros está vacío ".$ex->getMessage();
 		}
 	}
 
 	public function forgotPassword()
-	{	$encriptador=service('encrypter');
-		//$hoy = date("H:i:s");
-		//$email 	= trim($this->request->getVar('forgotmail'));
-		$encriptado=$encriptador->encrypt(20210304210009);
-		echo ($encriptado."\n");
-		$desencriptado = $encriptador->decrypt($encriptado);
-		echo $desencriptado."\n";
-
-
-
-
-
-
+	{
+		
+		
+		$emailForm 	= trim($this->request->getVar('forgotmail'));
 		$mCliente=model('Cliente');
-		$query=$mCliente->Select('*')->getWhere(['email'=>$email])->getRow();
-		$data=array('nombre'=>$query->nombre,'email'=>$email,'password'=>$query->password);
-		$data=[$email];
-		if($query == null)
+		$data=$mCliente->Select('*')->getWhere(['email'=>$emailForm])->getRowArray();
+		
+		$subject="Restablecer contraseña";
+		$templateEmail="emails/forgotPassword_view";
+		
+		if($data['email'] == $emailForm)
 		{
-			echo "envia email de cambio de password";
-		}else{
-			echo "nada";
-			//$this->email($data, $subject='Cambio de contraseña', $pahtTemplateView='',$emailFrom='info@projectrade.com');
+			return $this->emailTemplate($data,$subject, $templateEmail);
 		}
+		//$data=array('nombre'=>$query->nombre,'email'=>$email,'password'=>$query->password);
+		return base_url(route_to("/"));
 	}
 }

@@ -63,5 +63,5 @@ class Encryption extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $digest = 'sha1';
+	public $digest = 'SHA512';
 }

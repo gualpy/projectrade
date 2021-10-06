@@ -33,7 +33,7 @@
                                                                                             <td>
                                                                                                 <div>
                                                                                                     <h1 style="color:#3c4a5b;font-weight:bold;font-size:32px;line-height:43px;margin:0">
-                                                                                                        Su password de Projectrade ha sido cambiado correctamente
+                                                                                                        Para restablecer su password ingrese al siguiente link
                                                                                                     </h1>
                                                                                                 </div>
                                                                                             </td>
@@ -72,7 +72,7 @@
                                                                             <td>
                                                                                 <div>
                                                                                     <p style="margin:0">
-                                                                                        Usted a cambiado su contraseña correctamente, si usted no lo hizo por favor háganos saber.
+                                                                                        Usted a solicitado restablecer la contraseña de su cuenta de projectrade, si usted no lo hizo por favor háganos saber.
                                                                                     </p>
                                                                                 </div>
                                                                             </td>
