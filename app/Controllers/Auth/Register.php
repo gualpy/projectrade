@@ -4,7 +4,7 @@ namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use App\Entities\ClienteEntity;
-
+use Firebase\JWT\JWT;
 class Register extends BaseController
 {
 	protected $configs;
@@ -12,6 +12,10 @@ class Register extends BaseController
 	public function __construct()
 	{
 		$this->configs=config('MyConfig');
+	}
+	public function index()
+	{
+		
 	}
 
 	public function store()
@@ -65,5 +69,20 @@ class Register extends BaseController
 		}
     }
 
+	public function updatePassword($token, array $options = null)
+    {
+		
+		//$token = $this->request->getGet($token);
+		//dd($token);
+		try{
+			$key = service('getSecretKey');
+			$jwt=JWT::decode($token,$key,array('HS256'));
+			dd($jwt);
+			//return 
+		} catch(\Throwable $th){
+			return view('session/changePassword_view');
+		}
+	
+    }
 	
 }

@@ -111,7 +111,7 @@
           </a>
         </p>
         <p class="mb-0">
-          <a href="<?php echo base_url(route_to('register')) ?>" class="text-center">Registrar nueva cuenta</a>
+          <a href="<?php echo base_url(route_to('registro')) ?>" class="text-center">Registrar nueva cuenta</a>
         </p>
         <p class="mb-0">
           <a href="<?php echo base_url('../assets/TerminosyCondicionesPROJECTRADE.pdf') ?>" class="text-center" download>Terminos y condiciones</a>

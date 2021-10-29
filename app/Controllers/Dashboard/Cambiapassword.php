@@ -3,6 +3,7 @@
 namespace App\Controllers\Dashboard;
 
 use App\Controllers\BaseController;
+use Firebase\JWT\JWT;
 
 use Exception;
 
@@ -99,25 +100,18 @@ class Cambiapassword extends BaseController
 	
 	public function emailTemplate($data, $subject, $templateEmail)
 	{
-		//dd($data['email'], $subject, $templateEmail);
+		//dd($data['email'], $data['token_key'], $subject, $templateEmail);
 		$email = service('email');
-		
+		$message=view($templateEmail,$data);
 		try {   
-			$message=view($templateEmail,$data);
+			
 			$email->setTo("ca80dd06eb-67304c@inbox.mailtrap.io");
 			$email->setFrom($data['email'],'Info');
 			$email->setBCC($data['email'],'Info');
 			$email->setSubject($subject);
+			$message=view($templateEmail,$data);
 			$email->setMessage($message);
-			if($email->send())
-			{
-				echo "La contraseña ha sido cambiada satisfactoriamente.";
-			}else{
-
-				$data = $email->printDebugger(['headers']);
-				print_r($data);
-			}
-			echo "Mensaje enviado";
+			$email->send();
 		} catch (Exception $ex) {
 			echo "Alguno de los parámetros está vacío ".$ex->getMessage();
 		}
@@ -125,20 +119,53 @@ class Cambiapassword extends BaseController
 
 	public function forgotPassword()
 	{
-		
-		
-		$emailForm 	= trim($this->request->getVar('forgotmail'));
+		$forgotmail 	= trim($this->request->getVar('forgotmail'));
 		$mCliente=model('Cliente');
-		$data=$mCliente->Select('*')->getWhere(['email'=>$emailForm])->getRowArray();
-		
+		$data=$mCliente->Select('*')->getWhere(['email'=>$forgotmail])->getRowArray();
 		$subject="Restablecer contraseña";
 		$templateEmail="emails/forgotPassword_view";
+		//$path="/";
+		$validation = service('validation');
+		$validation->setRules([
+				'forgotmail'	=>'required|min_length[5]',
+		],
+		[//Errores
+				'forgotmail'=>[
+					'required'=>'Escriba su email',
+				]
+		]
+	);
 		
-		if($data['email'] == $emailForm)
+		if ($data['email'] == $forgotmail)
 		{
-			return $this->emailTemplate($data,$subject, $templateEmail);
+			$time = time();
+			$key = Service('getSecretKey');
+			$payload = [
+				'iat' => $time,
+				'exp' => $time + 60*120,
+				'data' => ['email'=>$data['email'],'name'=>$data['nombre']]
+			];
+			$linkjwt=JWT::encode($payload, $key);
+			//array_push($data,$linkjwt);
+			$data['token_key']=$linkjwt;
+			//dd($data);
+			$this->emailTemplate($data,$subject,$templateEmail);
+			return redirect()->back()->with('msg',[
+				'type'=>'success',
+				'body'=>'Revise su correo'
+			]);;
 		}
+		
 		//$data=array('nombre'=>$query->nombre,'email'=>$email,'password'=>$query->password);
-		return base_url(route_to("/"));
+		return redirect()->back()->with('msg',[
+			'type'=>'warning',
+			'body'=>'Usuario no encontrado'
+		]);
+	}
+
+	public function recoveryPassword()
+	{
+		
+		return view('recoveryPassword_view');
 	}
 }
