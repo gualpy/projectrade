@@ -72,8 +72,7 @@
                                                                             <td>
                                                                                 <div>
                                                                                     <p style="margin:0">
-                                                                                        Usted a solicitado restablecer la contraseña de su cuenta de projectrade, <a href="<?= base_url(route_to('recovery')."/".$token_key)?>">haga click aqui</a>, si usted no lo hizo por favor háganos saber.
-                                                                                        <p><?php echo $token_key?></p>
+                                                                                        Usted a solicitado restablecer la contraseña de su cuenta de projectrade,<?=anchor(base_url(route_to('validaHash',$token_key)),'haga click aquí', 'name="token_key"') ?>, si usted no lo hizo por favor háganos saber.
                                                                                     </p>
                                                                                 </div>
                                                                             </td>

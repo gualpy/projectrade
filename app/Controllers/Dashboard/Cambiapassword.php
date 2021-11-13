@@ -48,9 +48,6 @@ class Cambiapassword extends BaseController
 		$cliente =session('id_cliente');
 		
 		$cliente=$model->find($cliente);
-
-		
-		
 		
 		if(password_verify($vpassword, $cliente->password))
 		{
@@ -124,7 +121,7 @@ class Cambiapassword extends BaseController
 		$data=$mCliente->Select('*')->getWhere(['email'=>$forgotmail])->getRowArray();
 		$subject="Restablecer contraseña";
 		$templateEmail="emails/forgotPassword_view";
-		//$path="/";
+
 		$validation = service('validation');
 		$validation->setRules([
 				'forgotmail'	=>'required|min_length[5]',
@@ -143,7 +140,7 @@ class Cambiapassword extends BaseController
 			$payload = [
 				'iat' => $time,
 				'exp' => $time + 60*120,
-				'data' => ['email'=>$data['email'],'name'=>$data['nombre']]
+				'data' => ['email'=>$data['email'],'name'=>$data['nombre'],'idCliente'=>$data['cliente']]
 			];
 			$linkjwt=JWT::encode($payload, $key);
 			//array_push($data,$linkjwt);
@@ -163,9 +160,82 @@ class Cambiapassword extends BaseController
 		]);
 	}
 
-	public function recoveryPassword()
+	public function validaHash()
 	{
+		$uri = service('uri');
+		$hash=$uri->getSegment(2);
+		$key = Service('getSecretKey');
+		$decode = JWT::decode($hash, $key, array('HS256'));
+		//dd($decode);		
+		if($decode->exp >=time())
+		{
+			return view('recoveryPassword_view');
+
+		}else{
+			return ("<h1>Ha caducado su tiempo para renovar su contraseña<h1>");
+		}
 		
-		return view('recoveryPassword_view');
 	}
+	
+	public function recovery()
+	{
+		$validation = service('validation');
+		$validation->setRules([
+				'v-password'	=>'required|min_length[5]',
+				'password'   	=>'required|min_length[8]',
+				'c-password'   	=>'required|min_length[8]|matches[password]'
+		],
+		[//Errores
+				'v-password'=>[
+					'required'=>'Escriba su password',
+				],
+				'password'=>[
+					'required'=>'Las contraseñas no coinciden',
+				],
+				'c-password'=>[
+					'required'=>'Las contraseñas no coincidennnnnnn',
+				],				
+		]
+	);
+		if (!$validation->withRequest($this->request)->run()) {
+			//$validation->getErrors();
+			return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+		}
+		
+		//$data=$this->request->getPost();
+		//dd($data);
+		$vpassword=trim($this->request->getPost('v-password'));
+		$cpassword=trim($this->request->getPost('c-password'));
+		
+		$model = model('Cliente');
+		$uri = service('uri');
+		$hash=$uri->getSegment(2);
+		$key = Service('getSecretKey');
+		$decode = JWT::decode($hash, $key, array('HS256'));
+		
+		$cliente=$model->find($decode->data->idCliente);
+		
+		if(password_verify($vpassword, $cliente->password))
+		{
+			//actualiza passowrd
+			$cpassword=password_hash($cpassword,PASSWORD_DEFAULT);
+			$data=[
+				'cliente'=>$cliente->cliente,
+				'password'=>$cpassword,
+				'email'=> $cliente->email
+			];
+			//dd($data);
+			//$model = model('Cliente');
+			$model->save($data);
+			$this->emailPassword($data);
+			//session()->destroy();
+			return redirect()->back()
+			->with('msg',[
+				'type'=>'success',
+				'body'=>'Password actualizado'
+			]);
+		}	
+
+	}
+
 }

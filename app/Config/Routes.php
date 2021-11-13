@@ -37,7 +37,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Front\Home::index');
 $routes->get('register', 'Front\Home::register', ['as' => 'registro']);
 $routes->post('forgot', 'Dashboard\Cambiapassword::forgotPassword', ['as' => 'forgot']);
-$routes->get('recovery', 'Dashboard\Cambiapassword::recoveryPassword', ['as' => 'recovery']);
+$routes->get('validaHash/(:hash)', 'Dashboard\Cambiapassword::validaHash', ['as' => 'validaHash']);
 
 //$routes->resource('updatePassword', ['controller' => 'Auth\Register']);
 
